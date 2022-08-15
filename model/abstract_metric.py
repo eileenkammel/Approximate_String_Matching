@@ -17,8 +17,5 @@ class Metric(ABC):
 
         Returns:
             similarity value of metric appropriate type
-
-        Raises:
-            SameWordError:
         """
         pass
