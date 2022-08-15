@@ -20,8 +20,5 @@ class Levenshtein(Metric):
 
         Returns:
             int: Levenshtein Distance of two given words.
-
-        Raises:
-            SameWordError:
         """
         pass
