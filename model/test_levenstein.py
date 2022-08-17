@@ -37,7 +37,7 @@ class TestLevenshtein:
         assert Levenshtein.min_edit_dist("met", "meet") == 1
 
     def test_insertion1(self):
-        assert Levenshtein.min_edit_dist("bee", "bumblebee") == 5
+        assert Levenshtein.min_edit_dist("bee", "bumblebee") == 6
 
     def test_insertion2(self):
         assert Levenshtein.min_edit_dist("sum", "scrum") == 2
