@@ -27,4 +27,4 @@ class TestBK:
         assert test_tree.tree_root.get_child_distances()[2] == 3
 
     def testweight3(self, test_tree):
-        assert test_tree.tree_root.get_child_distances()[2] == 4
+        assert test_tree.tree_root.get_child_distances()[3] == 4
