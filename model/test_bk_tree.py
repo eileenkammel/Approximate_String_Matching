@@ -28,3 +28,7 @@ class TestBK:
 
     def testweight3(self, test_tree):
         assert test_tree.tree_root.get_child_distances()[3] == 4
+
+    def testuniqueness(self, test_tree):
+        assert len(test_tree.tree_root.get_child_distances()) == len(
+            set(test_tree.tree_root.get_child_distances()))
