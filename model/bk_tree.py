@@ -5,22 +5,22 @@ from levenshtein import Levenshtein
 
 class BKNode():
     def __init__(self, word):
-        self.contents = (word, [])
+        self._contents = (word, [])
 
     def get_node_label(self):
-        return self.contents[0]
+        return self._contents[0]
 
     def set_children(self, child, distance):
-        self.contents[1].append((child, distance))
+        self._contents[1].append((child, distance))
 
     def get_children_with_distance(self):
-        return self.contents[1]
+        return self._contents[1]
 
     def get_child_node(self):
-        return self.contents[1][0]
+        return self._contents[1][0]
 
     def get_child_distances(self):
-        return [child[1]for child in self.contents[1]]
+        return [child[1]for child in self._contents[1]]
 
 
 class BKTree():
