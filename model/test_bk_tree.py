@@ -32,3 +32,10 @@ class TestBK:
     def testuniqueness(self, test_tree):
         assert len(test_tree.tree_root.get_child_distances()) == len(
             set(test_tree.tree_root.get_child_distances()))
+
+    def test_search(self, test_tree):
+        assert test_tree.query("hero", 2) == ["help", "hell", "hello"]
+
+    def test_search1(self, test_tree):
+        assert test_tree.query("hero", 3) == [
+            "help", "hell", "hello", "helps", "shell"]
