@@ -12,6 +12,12 @@ def test_tree():
     return test_tree
 
 
+@pt.fixture(scope="session", autouse=True)
+def test_tree_from_file():
+    test_tree = BKTree.load_from_file("testtree.pkl")
+    return test_tree
+
+
 class TestBK:
 
     def test1(self, test_tree):
@@ -39,3 +45,11 @@ class TestBK:
     def test_search1(self, test_tree):
         assert test_tree.query("hero", 3) == [
             "help", "hell", "hello", "helps", "shell"]
+
+    def test_loaded_tree(self, test_tree, test_tree_from_file):
+        assert test_tree.query(
+            "hero", 2) == test_tree_from_file.query("hero", 2)
+
+    def test_loaded_tree1(self, test_tree, test_tree_from_file):
+        assert test_tree.query(
+            "hero", 3) == test_tree_from_file.query("hero", 3)
