@@ -2,7 +2,7 @@
 # Author: Eileen Kammel, 811770
 
 import pytest as pt
-from bk_tree import BKTree
+from model.bk_tree import BKTree
 
 
 @pt.fixture(scope="session", autouse=True)
