@@ -1,7 +1,9 @@
 # -*- coding: utf-8 -*-
 # Author: Eileen Kammel, 811770
+import os
+import pickle as pk
 from collections import deque
-from levenshtein import Levenshtein
+from model.levenshtein import Levenshtein
 
 
 class BKNode():
@@ -28,7 +30,14 @@ class BKTree():
     def __init__(self, distance_metric=Levenshtein):
         self.tree_root = None
         self.depth = 0
+        self._words = 0
         self.metric = distance_metric
+
+    def _set_words(self):
+        self._words += 1
+
+    def get_words(self):
+        return self._words
 
     def set_up_from_file(self, filename):
         """Sets up the BK-Tree.
@@ -49,9 +58,15 @@ class BKTree():
                 self.add(word, self.tree_root)
 
     def save_to_file(self):
-        pass
+        filename = input("Please enter a filename with .pkl file extension to save the tree: ")
+        if not os.path.exists(f"model/{filename}"):
+            with open(filename, "wb") as outfile:
+                pass
 
     def load_from_file(self, filename):
+        pass
+
+    def __str__(self):
         pass
 
     def set_root(self, word):
@@ -62,6 +77,7 @@ class BKTree():
         """
         root_node = BKNode(word)
         self.tree_root = root_node
+        self._set_words()
 
     def add(self, word, node):
         """Adds a new word to the Bk-Tree.
@@ -78,10 +94,9 @@ class BKTree():
         children = node.get_children_with_distance()
         if not children or dist not in node.get_child_distances():
             node.set_children(new_node, dist)
-            self.depth += 1
+            self._set_words()
             return
         conflict_node = [child for child in children if child[1] == dist]
-        self.depth += 1
         return self.add(word, conflict_node[0][0])
 
     def query(self, word, max_dist):
