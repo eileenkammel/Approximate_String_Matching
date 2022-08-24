@@ -11,5 +11,5 @@ class ApproxMatchViewer:
 
     @staticmethod
     def show_matches(query_word, max_dist, matches):
-        print(f"For {query_word} and maximum edit distance {max_dist} the matches are: ", " ".join(
+        print(f"For {query_word} and maximum edit distance {max_dist} the matches are:", ", ".join(
             matches))
