@@ -56,10 +56,13 @@ class BKTree():
         return (1 + max_depth)
 
     def set_depth(self):
-        self.depth = BKTree.depth(self.tree_root)
+        self._depth = BKTree.depth(self.tree_root)
 
     def get_depth(self):
-        return self.depth
+        return self._depth
+
+    def get_tree_stats(self):
+        return self._depth, self._words
 
     def set_up_from_file(self, filename):
         """Sets up the BK-Tree.
