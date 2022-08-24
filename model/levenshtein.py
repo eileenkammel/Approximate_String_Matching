@@ -2,7 +2,7 @@
 # Author: Eileen Kammel, 811770
 
 import numpy as np
-from abstract_metric import Metric
+from model.abstract_metric import Metric
 
 # Implements the dynamic programming version of calculating the
 # minimum Levenshtein Distance from Jurafsky & Martin (2021).
