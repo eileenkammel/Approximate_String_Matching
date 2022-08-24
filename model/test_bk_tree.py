@@ -18,7 +18,7 @@ def test_tree_from_file():
     return test_tree
 
 
-class TestBK:
+class TestBKLevenshtein:
 
     def test1(self, test_tree):
         assert len(test_tree.tree_root.get_children_with_distance()) == 4
