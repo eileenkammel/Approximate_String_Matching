@@ -14,7 +14,7 @@ def test_tree():
 
 @pt.fixture(scope="session", autouse=True)
 def test_tree_from_file():
-    test_tree = BKTree.load_from_file("model/test_data/testtree.pkl")
+    test_tree = BKTree.load_from_file("model/test_data/test_tree.pkl")
     return test_tree
 
 
