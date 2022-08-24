@@ -14,13 +14,15 @@ class InteractiveMatcher:
         self.tree = BKTree()
         self.metric = None
 
-    def get_data(self, filepath, save=False, metric=Levenshtein):
+    def set_up_tree(self, filepath, save=False, metric=Levenshtein):
         if filepath.endswith(".txt"):
             self.tree.set_up_from_file(filepath)
             if save:
                 self.tree.save_to_file()
         if filepath.endswith(".pkl"):
             self.tree = BKTree.load_from_file(filepath)
+        depth, words = self.tree.get_tree_stats()
+        self.view.show_tree_stats(depth, words)
 
     def find_matches(self):
         while True:

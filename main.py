@@ -16,5 +16,5 @@ save = args.s
 
 test = InteractiveMatcher()
 
-test.get_data(file, save)
+test.set_up_tree(file, save)
 test.find_matches()
