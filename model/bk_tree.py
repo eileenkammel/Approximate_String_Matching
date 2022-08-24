@@ -4,7 +4,7 @@
 import os
 import pickle as pkl
 from collections import deque
-from model.levenshtein import Levenshtein
+from model.metrics.levenshtein import Levenshtein
 
 
 class BKNode():

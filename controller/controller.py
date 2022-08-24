@@ -4,7 +4,7 @@
 import pickle as pkl
 from model.bk_tree import BKTree
 from view.view import ApproxMatchViewer
-from model.levenshtein import Levenshtein
+from model.metrics.levenshtein import Levenshtein
 
 
 class InteractiveMatcher:
