@@ -8,13 +8,13 @@ from model.bk_tree import BKTree
 @pt.fixture(scope="session", autouse=True)
 def test_tree():
     test_tree = BKTree()
-    test_tree.set_up_from_file("model/demo_wordlist.txt")
+    test_tree.set_up_from_file("model/test_data/demo_wordlist.txt")
     return test_tree
 
 
 @pt.fixture(scope="session", autouse=True)
 def test_tree_from_file():
-    test_tree = BKTree.load_from_file("testtree.pkl")
+    test_tree = BKTree.load_from_file("model/test_data/testtree.pkl")
     return test_tree
 
 
