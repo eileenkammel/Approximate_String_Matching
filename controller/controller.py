@@ -15,7 +15,12 @@ class InteractiveMatcher:
         self.metric = None
 
     def get_data(self, filepath, save=False, metric=Levenshtein):
-        self.tree.set_up_from_file(filepath)
+        if filepath.endswith(".txt"):
+            self.tree.set_up_from_file(filepath)
+            if save:
+                self.tree.save_to_file()
+        if filepath.endswith(".pkl"):
+            self.tree = BKTree.load_from_file(filepath)
 
     def find_matches(self):
         while True:
