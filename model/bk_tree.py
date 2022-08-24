@@ -23,6 +23,9 @@ class BKNode():
     def get_child_node(self):
         return self._contents[1][0]
 
+    def get_all_child_nodes(self):
+        return [child[0] for child in self._contents[1]]
+
     def get_child_distances(self):
         return [child[1]for child in self._contents[1]]
 
@@ -30,15 +33,33 @@ class BKNode():
 class BKTree():
     def __init__(self, distance_metric=Levenshtein):
         self.tree_root = None
-        self.depth = 0
+        self._depth = 0
         self._words = 0
         self.metric = distance_metric
 
-    def _set_words(self):
+    def set_words(self):
         self._words += 1
 
     def get_words(self):
         return self._words
+
+    @staticmethod
+    def depth(node):
+        """Finds max depth of the tree."""
+        if len(node.get_all_child_nodes()) == 0:
+            return 0
+        max_depth = 0
+        for child in node.get_all_child_nodes():
+            child_depth = BKTree.depth(child)
+            if child_depth > max_depth:
+                max_depth = child_depth
+        return (1 + max_depth)
+
+    def set_depth(self):
+        self.depth = BKTree.depth(self.tree_root)
+
+    def get_depth(self):
+        return self.depth
 
     def set_up_from_file(self, filename):
         """Sets up the BK-Tree.
@@ -57,6 +78,7 @@ class BKTree():
                 if not word:
                     break
                 self.add(word, self.tree_root)
+        self.set_depth()
 
     def save_to_file(self):
         filename = input(
@@ -82,7 +104,7 @@ class BKTree():
         """
         root_node = BKNode(word)
         self.tree_root = root_node
-        self._set_words()
+        self.set_words()
 
     def add(self, word, node):
         """Adds a new word to the Bk-Tree.
@@ -99,7 +121,7 @@ class BKTree():
         children = node.get_children_with_distance()
         if not children or dist not in node.get_child_distances():
             node.set_children(new_node, dist)
-            self._set_words()
+            self.set_words()
             return
         conflict_node = [child for child in children if child[1] == dist]
         return self.add(word, conflict_node[0][0])
