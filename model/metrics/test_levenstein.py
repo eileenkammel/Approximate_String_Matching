@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # Author: Eileen Kammel, 811770
 
-from model.levenshtein import Levenshtein
+from model.metrics.levenshtein import Levenshtein
 
 
 class TestLevenshtein:

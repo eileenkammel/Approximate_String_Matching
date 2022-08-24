@@ -1,7 +1,7 @@
 # -*-coding:utf-8 -*-
 # Author: Eileen Kammel, 811770
 
-from model.sorensen_dice import SorensenDiceCoefficient
+from model.metrics.sorensen_dice import SorensenDiceCoefficient
 
 
 class TestSDC:

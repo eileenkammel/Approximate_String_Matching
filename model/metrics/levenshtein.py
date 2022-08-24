@@ -2,7 +2,7 @@
 # Author: Eileen Kammel, 811770
 
 import numpy as np
-from model.abstract_metric import Metric
+from model.metrics.abstract_metric import Metric
 
 # Implements the dynamic programming version of calculating the
 # minimum Levenshtein Distance from Jurafsky & Martin (2021).
@@ -64,4 +64,3 @@ class Levenshtein(Metric):
         if source_char == target_char:
             return 0
         return 1
-

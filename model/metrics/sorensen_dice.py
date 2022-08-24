@@ -1,7 +1,7 @@
 # -*-coding:utf-8 -*-
 # Author: Eileen Kammel, 811770
 
-from model.abstract_metric import Metric
+from model.metrics.abstract_metric import Metric
 
 
 class SorensenDiceCoefficient(Metric):
