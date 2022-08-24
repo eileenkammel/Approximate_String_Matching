@@ -53,3 +53,6 @@ class TestBK:
     def test_loaded_tree1(self, test_tree, test_tree_from_file):
         assert test_tree.query(
             "hero", 3) == test_tree_from_file.query("hero", 3)
+
+    def test_tree_depth(self, test_tree):
+        assert test_tree.get_depth() == 2
