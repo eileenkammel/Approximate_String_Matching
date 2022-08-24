@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 # Author: Eileen Kammel, 811770
+
 import os
-import pickle as pk
+import pickle as pkl
 from collections import deque
 from model.levenshtein import Levenshtein
 
@@ -58,13 +59,17 @@ class BKTree():
                 self.add(word, self.tree_root)
 
     def save_to_file(self):
-        filename = input("Please enter a filename with .pkl file extension to save the tree: ")
+        filename = input(
+            "Please enter a filename with .pkl file extension to save the tree: ")
         if not os.path.exists(f"model/{filename}"):
             with open(filename, "wb") as outfile:
-                pass
+                pkl.dump(self, outfile)
 
-    def load_from_file(self, filename):
-        pass
+    @staticmethod
+    def load_from_file(filename):
+        with open(filename, "rb") as infile:
+            tree = pkl.load(infile)
+        return tree
 
     def __str__(self):
         pass
@@ -142,7 +147,8 @@ class BKTree():
             if dist <= max_dist:
                 matches.append(node_word)
             next_level_nodes = current_node.get_children_with_distance()
-            candidates = [child[0] for child in next_level_nodes if child[1] in range(
-                dist-max_dist, dist+max_dist+1)]
+            candidates = [child[0] for child in next_level_nodes
+                          if child[1] in range(dist-max_dist, dist+max_dist+1)
+                          ]
             nodes_to_visit.extend(candidates)
         return matches
