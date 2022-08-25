@@ -173,7 +173,8 @@ class BKTree():
                 matches.append(node_word)
             next_level_nodes = current_node.get_children_with_distance()
             candidates = [child[0] for child in next_level_nodes
-                          if child[1] in range(dist-max_dist, dist+max_dist+1)
+                          if child[1] > (dist - max_dist)
+                          and child[1] <= (dist + max_dist)
                           ]
             nodes_to_visit.extend(candidates)
         return matches
