@@ -10,7 +10,7 @@ from model.metrics.levenshtein import Levenshtein
 def test_tree():
     test_tree = BKTree()
     test_tree.set_up_from_file(
-        "model/test_data/demo_wordlist.txt", Levenshtein)
+        "model/test_data/test_wordlist.txt", Levenshtein)
     return test_tree
 
 
