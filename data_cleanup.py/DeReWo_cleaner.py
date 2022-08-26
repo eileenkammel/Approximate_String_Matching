@@ -13,5 +13,8 @@ def clean(filepath):
                     break
                 if line.startswith("#"):
                     continue
-                line = re.sub(r"([a-zA-Z]+)(\s.*|\W.*)", r"\1", line)
-                outfile.write(line)
+                line = re.sub(r"([a-zA-ZßäüöÄÜÖéáàù]+)(\s.*|\W.*)", r"\1", line)
+                if len(line.strip()) >= 2:
+                    outfile.write(line)
+                else:
+                    continue
