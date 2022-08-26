@@ -31,6 +31,6 @@ class ApproxMatchViewer:
             max_dist: Edit distance tolerance limit.
             matches: List of all matches for query_word.
         """
-        print((f"For {query_word} and maximum edit distance {max_dist}"
-               "the matches are:"
-               ", ".join(matches)))
+        print((
+            f"For {query_word} and maximum edit distance {max_dist} "
+            "the matches are: " + ", ".join(matches)))
