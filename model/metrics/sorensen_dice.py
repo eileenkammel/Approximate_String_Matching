@@ -43,6 +43,8 @@ class SorensenDiceCoefficient(Metric):
             List of bigrams and lenght of that list.
         """
         bigrams = []
+        if len(word) == 2:
+            return [word], 1
         for idx, _ in enumerate(word):
             if idx <= (len(word)-2):
                 bigram = word[idx] + word[idx+1]
