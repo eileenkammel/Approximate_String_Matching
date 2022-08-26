@@ -18,9 +18,9 @@ class ApproxMatchViewer:
             depth: Depth of the tree.
             words: Word/Node coiunt of the tree.
         """
-        print(
-            f"""A BK-Tree with depth {depth},
-             containing {words} unique words has been created.""")
+        print((
+            f"A BK-Tree with depth {depth} "
+            f"containing {words} unique words has been created."))
 
     @staticmethod
     def show_matches(query_word: int, max_dist: float, matches: list):
@@ -31,4 +31,6 @@ class ApproxMatchViewer:
             max_dist: Edit distance tolerance limit.
             matches: List of all matches for query_word.
         """
-        print(f"For {query_word} and maximum edit distance {max_dist} the matches are:", ", ".join(matches))
+        print((f"For {query_word} and maximum edit distance {max_dist}"
+               "the matches are:"
+               ", ".join(matches)))
