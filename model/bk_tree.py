@@ -48,10 +48,10 @@ class BKNode():
 
 class BKTree():
     def __init__(self):
-        self.tree_root = None
+        self._tree_root = None
         self._depth = 0
         self._words = 0
-        self.metric = None
+        self._metric = None
 
     def set_words(self):
         """Increment total word count by 1."""
@@ -82,7 +82,7 @@ class BKTree():
 
     def set_depth(self):
         """Set depth attribute by calling the depth function."""
-        self._depth = BKTree.depth(self.tree_root)
+        self._depth = BKTree.depth(self._tree_root)
 
     def get_depth(self):
         """Return depth of the tree."""
@@ -94,7 +94,7 @@ class BKTree():
 
     def set_metric(self, metric: Metric):
         """Set metric used to build tree."""
-        self.metric = metric
+        self._metric = metric
 
     def set_up_from_file(self, filepath: str, metric: Metric):
         """Set up the BK-Tree.
@@ -116,7 +116,7 @@ class BKTree():
                 word = wordlist.readline().strip()
                 if not word:
                     break
-                self.add(word, self.tree_root)
+                self.add(word, self._tree_root)
         self.set_depth()
 
     def save_to_file(self):
@@ -145,8 +145,12 @@ class BKTree():
             word: Word to set as tree root.
         """
         root_node = BKNode(word)
-        self.tree_root = root_node
+        self._tree_root = root_node
         self.set_words()
+
+    def get_root(self):
+        """Return tree root node."""
+        return self._tree_root
 
     def add(self, word: str, node: BKNode):
         """Add a new word to the BK-Tree.
@@ -160,7 +164,7 @@ class BKTree():
             node: Node to add new child to.
         """
         new_node = BKNode(word)
-        dist = self.metric.min_edit_dist(node.get_node_label(), word)
+        dist = self._metric.min_edit_dist(node.get_node_label(), word)
         children = node.get_children_with_distance()
         if not children or dist not in node.get_child_distances():
             node.set_children(new_node, dist)
@@ -182,7 +186,7 @@ class BKTree():
             List of words which are within the edit distance
             tolerance limit for the query word.
         """
-        return self._search(word, self.tree_root, max_dist)
+        return self._search(word, self._tree_root, max_dist)
 
     def _search(self, word: str, node: BKNode, max_dist: float):
         """Searches BK-Tree for matches regarding a given word and
@@ -210,7 +214,7 @@ class BKTree():
         while nodes_to_visit:
             current_node = nodes_to_visit.popleft()
             node_word = current_node.get_node_label()
-            dist = self.metric.min_edit_dist(node_word, word)
+            dist = self._metric.min_edit_dist(node_word, word)
             if dist <= max_dist:
                 matches.append(node_word)
             next_level_nodes = current_node.get_children_with_distance()
