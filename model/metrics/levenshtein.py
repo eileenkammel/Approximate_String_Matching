@@ -4,15 +4,17 @@
 import numpy as np
 from model.metrics.abstract_metric import Metric
 
-# Implements the dynamic programming version of calculating the
-# minimum Levenshtein Distance from Jurafsky & Martin (2021).
+"""Implements the dynamic programming version of calculating the
+minimum Levenshtein Distance from Jurafsky & Martin (2021). Part of the
+Model within the Model-View-Controller design pattern.
+"""
 
 
 class Levenshtein(Metric):
     """Levenshtein Distance Metric."""
 
     @staticmethod
-    def min_edit_dist(source, target):
+    def min_edit_dist(source: str, target: str):
         """Calculates minimum Levenshtein Distance of two words.
 
         Levenshtein Distance indicates how many operations are
@@ -26,8 +28,8 @@ class Levenshtein(Metric):
         if substrings are identical.
 
         Args:
-            source: str, source word
-            target: str, target word
+            source: Source word.
+            target: Target word.
 
         Returns:
             int: min Levenshtein Distance of two given words.
@@ -51,15 +53,15 @@ class Levenshtein(Metric):
         return dm[n, m]
 
     @staticmethod
-    def substitute(source_char, target_char):
+    def substitute(source_char: str, target_char: str):
         """Determines substitution cost.
 
         Args:
-        source_char: str, character in source string
-        target_char: str, character in target string
+        source_char: Character in source string.
+        target_char: Character in target string.
 
         Retuns:
-        int, cost of substitution
+        int: Cost of substitution.
         """
         if source_char == target_char:
             return 0
