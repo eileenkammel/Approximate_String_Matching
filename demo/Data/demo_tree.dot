@@ -1,0 +1,24 @@
+graph bktree {
+help [label=help, shape=circle];
+hell [label=hell, shape=circle];
+help -- hell  [label=1];
+hell [label=hell, shape=circle];
+helps [label=helps, shape=circle];
+hell -- helps  [label=2];
+helps [label=helps, shape=circle];
+hello [label=hello, shape=circle];
+help -- hello  [label=2];
+hello [label=hello, shape=circle];
+shell [label=shell, shape=circle];
+hello -- shell  [label=2];
+shell [label=shell, shape=circle];
+helper [label=helper, shape=circle];
+hello -- helper  [label=3];
+helper [label=helper, shape=circle];
+loop [label=loop, shape=circle];
+help -- loop  [label=3];
+loop [label=loop, shape=circle];
+troop [label=troop, shape=circle];
+help -- troop  [label=4];
+troop [label=troop, shape=circle];
+}
