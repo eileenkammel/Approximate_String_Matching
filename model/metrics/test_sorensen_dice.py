@@ -20,4 +20,5 @@ class TestSDC:
             "schnittblumen", "schnitbluhmen") == 0.8333333333333334
 
     def test_5(self):
-        assert SorensenDiceCoefficient.min_edit_dist("rhythmus", "rytmus") == 0.5
+        assert SorensenDiceCoefficient.min_edit_dist(
+            "rhythmus", "rytmus") == 0.5
