@@ -3,6 +3,11 @@
 
 from model.metrics.abstract_metric import Metric
 
+"""Implements the Sorensen Dice Coefficient based on the wikipedia article:
+https://en.wikipedia.org/wiki/S%C3%B8rensen%E2%80%93Dice_coefficient
+Part of the Model within the Model-View-Controller design pattern.
+"""
+
 
 class SorensenDiceCoefficient(Metric):
     """Sorensen Dice Coefficient."""
@@ -23,7 +28,7 @@ class SorensenDiceCoefficient(Metric):
             target: Target word
 
         Returns:
-            float: Sorensen Dice Coefficient, between 0.0 and 1.0.
+            float: Sorensen Dice Coefficient, between 0 and 1.
 
         """
         bigrams_s, len_bs = SorensenDiceCoefficient.bigrams(source)
@@ -40,7 +45,7 @@ class SorensenDiceCoefficient(Metric):
             word : Word to construct bigrams for.
 
         Returns:
-            List of bigrams and lenght of that list.
+            List of bigrams (str) and int lenght of that list.
         """
         bigrams = []
         if len(word) == 2:
