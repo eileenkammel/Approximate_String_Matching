@@ -23,23 +23,23 @@ def test_tree_from_file():
 class TestBKLevenshtein:
 
     def test1(self, test_tree):
-        assert len(test_tree.tree_root.get_children_with_distance()) == 4
+        assert len(test_tree.get_root().get_children_with_distance()) == 4
 
     def testweight(self, test_tree):
-        assert test_tree.tree_root.get_child_distances()[0] == 1
+        assert test_tree.get_root().get_child_distances()[0] == 1
 
     def testweight1(self, test_tree):
-        assert test_tree.tree_root.get_child_distances()[1] == 2
+        assert test_tree.get_root().get_child_distances()[1] == 2
 
     def testweight2(self, test_tree):
-        assert test_tree.tree_root.get_child_distances()[2] == 3
+        assert test_tree.get_root().get_child_distances()[2] == 3
 
     def testweight3(self, test_tree):
-        assert test_tree.tree_root.get_child_distances()[3] == 4
+        assert test_tree.get_root().get_child_distances()[3] == 4
 
     def testuniqueness(self, test_tree):
-        assert len(test_tree.tree_root.get_child_distances()) == len(
-            set(test_tree.tree_root.get_child_distances()))
+        assert len(test_tree.get_root().get_child_distances()) == len(
+            set(test_tree.get_root().get_child_distances()))
 
     def test_search(self, test_tree):
         assert test_tree.query("hero", 2) == ["help", "hell", "hello"]
