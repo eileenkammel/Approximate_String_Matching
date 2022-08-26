@@ -9,8 +9,10 @@ The BKTree stores information about its depth, node count, its root node and
 the metric used to generate the tree.
 The Tree is build by linking nodes together, beginning with the rood node.
 """
+
 import os
 import pickle as pkl
+import pydot
 from collections import deque
 from model.metrics.abstract_metric import Metric
 
@@ -118,6 +120,7 @@ class BKTree():
                     break
                 self.add(word, self._tree_root)
         self.set_depth()
+        self.tree_to_dot()
 
     def save_to_file(self):
         """Pickle and save BKTree object."""
@@ -224,3 +227,30 @@ class BKTree():
                           ]
             nodes_to_visit.extend(candidates)
         return matches
+
+    def tree_to_dot(self):
+        """Create a DOT file representing the tree."""
+        tree = pydot.Dot("bktree", graph_type="graph")
+        BKTree.add_node_to_dot(self._tree_root, tree)
+        tree.write_raw('output_raw.dot')
+
+    def add_node_to_dot(node: BKNode, dot_graph: pydot.Dot):
+        """Add new nodes and edeges to DOT graph.
+
+        Args:
+            node: Node to add to DOT graph.
+            dot_graph: Graph to add to.
+        """
+        nodelabel = node.get_node_label()
+        curr_node = pydot.Node(nodelabel, label=nodelabel, shape='circle')
+        dot_graph.add_node(curr_node)
+        for child in node.get_children_with_distance():
+            child_label = child[0].get_node_label()
+            edit_dist = str(child[1])
+            child_node = pydot.Node(
+                child_label, label=child_label, shape='circle')
+            dot_graph.add_node(child_node)
+            edge = pydot.Edge(curr_node, child_node, label=edit_dist)
+            dot_graph.add_edge(edge)
+            BKTree.add_node_to_dot(child[0], dot_graph)
+        return dot_graph
