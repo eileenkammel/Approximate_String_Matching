@@ -1,31 +1,48 @@
 # -*- coding: utf-8 -*-
 # Author: Eileen Kammel, 811770
-
+"""Burkard-Keller-Tree for the Approximate String Matching. Part of the Model
+within the Model-View-Controller design pattern.
+The BK-Tree is implemented in two parts: The nodes of the tree
+are their own class. A BKNode object stores information about its label/word
+and about its children, also BKNodes, and their edit distasnce from the label.
+The BKTree stores information about its depth, node count, its root node and
+the metric used to generate the tree.
+The Tree is build by linking nodes together, beginning with the rood node.
+"""
 import os
 import pickle as pkl
 from collections import deque
+from model.metrics.abstract_metric import Metric
 
 
 class BKNode():
-    def __init__(self, word):
+    def __init__(self, word: str):
         self._contents = (word, [])
 
     def get_node_label(self):
+        """Return the label of a node."""
         return self._contents[0]
 
     def set_children(self, child, distance):
+        """Add a child its edit distance to a node."""
         self._contents[1].append((child, distance))
 
     def get_children_with_distance(self):
+        """Return a children list of tuples each containing
+        a child BKNode object and its edit distance.
+        """
         return self._contents[1]
 
     def get_child_node(self):
+        """Return a single child BKNode."""
         return self._contents[1][0]
 
     def get_all_child_nodes(self):
+        """Return a list of child BKNode without edit distance."""
         return [child[0] for child in self._contents[1]]
 
     def get_child_distances(self):
+        """Return a list of edit distances from all children."""
         return [child[1]for child in self._contents[1]]
 
 
@@ -37,14 +54,23 @@ class BKTree():
         self.metric = None
 
     def set_words(self):
+        """Increment total word count by 1."""
         self._words += 1
 
     def get_words(self):
+        """Return word count."""
         return self._words
 
     @staticmethod
-    def depth(node):
-        """Finds max depth of the tree."""
+    def depth(node: BKNode):
+        """Recursively finds max depth of the tree.
+
+        Args:
+            node: Node to determine max depth of.
+
+        Returns:
+            int: Max Depth of a tree.
+        """
         if len(node.get_all_child_nodes()) == 0:
             return 0
         max_depth = 0
@@ -55,28 +81,35 @@ class BKTree():
         return (1 + max_depth)
 
     def set_depth(self):
+        """Set depth attribute by calling the depth function."""
         self._depth = BKTree.depth(self.tree_root)
 
     def get_depth(self):
+        """Return depth of the tree."""
         return self._depth
 
     def get_tree_stats(self):
+        """Return depth and word count of the tree."""
         return self._depth, self._words
 
-    def set_metric(self, metric):
+    def set_metric(self, metric: Metric):
+        """Set metric used to build tree."""
         self.metric = metric
 
-    def set_up_from_file(self, filename, metric):
-        """Sets up the BK-Tree.
+    def set_up_from_file(self, filepath: str, metric: Metric):
+        """Set up the BK-Tree.
 
-        Tree is set up by selecting a root and then adding word by word new
-        nodes to it. Words come from a textfile as source.
+        Tree is set up by selecting a root and then adding new nodes to it
+        while simultaneously incrementing the word count of the tree.
+        Words come from a textfile as source. After set-up is completed,
+        depth of the tree is set.
 
         Args:
-            filename (str): filename for source words
+            filepath: Filepath to text file for source words.
+            metric: Metric class to use in tree set-up.
         """
         self.set_metric(metric)
-        with open(filename, "r", encoding="utf-8") as wordlist:
+        with open(filepath, "r", encoding="utf-8") as wordlist:
             root = wordlist.readline().strip()
             self.set_root(root)
             while True:
@@ -87,40 +120,44 @@ class BKTree():
         self.set_depth()
 
     def save_to_file(self):
+        """Pickle and save BKTree object."""
         filename = input(
-            "Please enter a filename with .pkl file extension to save the tree: ")
+            "Enter a filename with .pkl file extension to save the tree: ")
         if not os.path.exists(f"model/{filename}"):
             with open(filename, "wb") as outfile:
                 pkl.dump(self, outfile)
 
     @staticmethod
-    def load_from_file(filename):
-        with open(filename, "rb") as infile:
+    def load_from_file(filepath: str):
+        """Load pre-build and pickled tree from a file.
+
+        Args:
+            filepath: Filepath to a pickled Tree.
+        """
+        with open(filepath, "rb") as infile:
             tree = pkl.load(infile)
         return tree
 
-    def __str__(self):
-        pass
-
-    def set_root(self, word):
-        """Sets root node of a BK-Tree.
+    def set_root(self, word: str):
+        """Set root node of a BK-Tree.
 
         Args:
-            word (str): Word to set as tree root.
+            word: Word to set as tree root.
         """
         root_node = BKNode(word)
         self.tree_root = root_node
         self.set_words()
 
-    def add(self, word, node):
-        """Adds a new word to the Bk-Tree.
+    def add(self, word: str, node: BKNode):
+        """Add a new word to the BK-Tree.
 
-        A new node is instanciated with the given word and then
-        added as a child to an appropriate exisiting node.
+        A new node is instantiated with the given word and then
+        added as a child to an appropriate exisiting node. After each
+        addition total word count is incremented by 1.
 
         Args:
-            word (str): word to add to tree
-            node (BKNode): node to add new child to
+            word: Word to add to tree.
+            node: Node to add new child to.
         """
         new_node = BKNode(word)
         dist = self.metric.min_edit_dist(node.get_node_label(), word)
@@ -132,12 +169,14 @@ class BKTree():
         conflict_node = [child for child in children if child[1] == dist]
         return self.add(word, conflict_node[0][0])
 
-    def query(self, word, max_dist):
+    def query(self, word: str, max_dist: float):
         """Public query function.
 
+        Accepts the search parameters for the string matching.
+
         Args:
-            word (str): query word to find matches for
-            max_dist (int): edit ditance tolerance limit
+            word: Query word to find matches for.
+            max_dist: Edit ditance tolerance limit.
 
         Returns:
             List of words which are within the edit distance
@@ -145,7 +184,7 @@ class BKTree():
         """
         return self._search(word, self.tree_root, max_dist)
 
-    def _search(self, word, node, max_dist):
+    def _search(self, word: str, node: BKNode, max_dist: float):
         """Searches BK-Tree for matches regarding a given word and
         maximum edit distance.
 
@@ -158,12 +197,12 @@ class BKTree():
         of the current node, max_dist being an edit distance tolerance limit.
 
         Args:
-            word (str): query word to find matches for
-            node (BKNode): current node to compare query word against
-            max_dist (int): edit ditance tolerance limit
+            word: Query word to find matches for.
+            node: Current node to compare query word against.
+            max_dist: Edit ditance tolerance limit.
 
         Returns:
-            matches (list): list of words which are within the edit distance
+            matches: List of words which are within the edit distance
             tolerance limit for the query word.
         """
         nodes_to_visit = deque([node])
