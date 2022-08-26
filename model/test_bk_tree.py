@@ -3,12 +3,14 @@
 
 import pytest as pt
 from model.bk_tree import BKTree
+from model.metrics.levenshtein import Levenshtein
 
 
 @pt.fixture(scope="session", autouse=True)
 def test_tree():
     test_tree = BKTree()
-    test_tree.set_up_from_file("model/test_data/demo_wordlist.txt")
+    test_tree.set_up_from_file(
+        "model/test_data/demo_wordlist.txt", Levenshtein)
     return test_tree
 
 
