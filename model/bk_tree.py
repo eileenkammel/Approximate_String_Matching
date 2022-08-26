@@ -4,7 +4,6 @@
 import os
 import pickle as pkl
 from collections import deque
-from model.metrics.levenshtein import Levenshtein
 
 
 class BKNode():
@@ -31,11 +30,11 @@ class BKNode():
 
 
 class BKTree():
-    def __init__(self, distance_metric=Levenshtein):
+    def __init__(self):
         self.tree_root = None
         self._depth = 0
         self._words = 0
-        self.metric = distance_metric
+        self.metric = None
 
     def set_words(self):
         self._words += 1
@@ -64,7 +63,10 @@ class BKTree():
     def get_tree_stats(self):
         return self._depth, self._words
 
-    def set_up_from_file(self, filename):
+    def set_metric(self, metric):
+        self.metric = metric
+
+    def set_up_from_file(self, filename, metric):
         """Sets up the BK-Tree.
 
         Tree is set up by selecting a root and then adding word by word new
@@ -73,6 +75,7 @@ class BKTree():
         Args:
             filename (str): filename for source words
         """
+        self.set_metric(metric)
         with open(filename, "r", encoding="utf-8") as wordlist:
             root = wordlist.readline().strip()
             self.set_root(root)
@@ -168,7 +171,7 @@ class BKTree():
         while nodes_to_visit:
             current_node = nodes_to_visit.popleft()
             node_word = current_node.get_node_label()
-            dist = Levenshtein.min_edit_dist(node_word, word)
+            dist = self.metric.min_edit_dist(node_word, word)
             if dist <= max_dist:
                 matches.append(node_word)
             next_level_nodes = current_node.get_children_with_distance()
