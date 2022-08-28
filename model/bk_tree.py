@@ -254,3 +254,5 @@ class BKTree():
             dot_graph.add_edge(edge)
             BKTree.add_node_to_dot(child[0], dot_graph)
         return dot_graph
+
+
