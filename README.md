@@ -16,8 +16,24 @@ The implementation follows the Model-View-Controller design pattern. An overview
 
 ***
 ## Requirements
+[Python](https://www.python.org/downloads/) 3.10.4
+\
+\
+numpy 1.22.3\
+pydot 1.4.2\
+pytest 7.1.2\
+\
+Requirements besides Python can be installed with pip by running
+```pip3 install -r requirements.txt```
 ***
 ## Installation
+Download and unzip Repository. Save to loacation of your choice. Install requirements above as needed. 
+***
+## Demo
+A demo containing a pre-build tree with english word forms and Levenshtein Distance can be executed by running
+```python demo.py```
+\
+To exit the demo, enter an empty line instead of a query word.
 ***
 ## Usage
 ***
