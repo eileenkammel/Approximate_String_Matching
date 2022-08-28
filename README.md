@@ -36,7 +36,7 @@ A demo containing a pre-build tree with english word forms and Levenshtein Dista
 To exit the demo, enter an empty line instead of a query word.
 ***
 ## Usage
-```python 3 approx_matching.py [-h] [-f FILE] [-s] [-m [METRIC]]```\
+```python3 approx_matching.py [-h] [-f FILE] [-s] [-m [METRIC]]```\
 \
 For file either a .txt file containing a word list or a .pkl file containing a pickled BK-Tree can be passed. Note that the save flag ```-s```should only be set when setting up the tree from a text file as should a metric name only be passed when setting up a new tree. For metric a valid meric name can be passed. At state, only Sorensen-Dice Coefficient can be chosen by entering one of the allowed names for it: SorensenDiceCoefficient, SDC, sdc. If no name is given, the Levenshtein Distance that is set as default is loaded. If the tree has been set up or loaded successfully, status output will inform you about the tree stats.\
 \
