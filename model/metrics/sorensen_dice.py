@@ -69,3 +69,5 @@ class SorensenDiceCoefficient(Metric):
         intersections = [
             bigram for bigram in bigrams_source if bigram in bigrams_target]
         return len(intersections)
+
+

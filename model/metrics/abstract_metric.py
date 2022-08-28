@@ -21,3 +21,5 @@ class Metric(ABC):
             Min edit distance of metric appropriate type.
         """
         pass
+
+

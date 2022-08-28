@@ -61,3 +61,5 @@ class TestBKLevenshtein:
 
     def test_tree_words(self, test_tree):
         assert test_tree.get_words() == 8
+
+
