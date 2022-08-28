@@ -36,9 +36,13 @@ A demo containing a pre-build tree with english word forms and Levenshtein Dista
 To exit the demo, enter an empty line instead of a query word.
 ***
 ## Usage
-```python3 approx_matching.py [-h] [-f FILE] [-s] [-m [METRIC]]```\
+```python3 approx_matching.py [-h] [--file FILE] [--save] [--metric [METRIC]]```\
 \
-For file either a .txt file containing a word list or a .pkl file containing a pickled BK-Tree can be passed. Note that the save flag ```-s```should only be set when setting up the tree from a text file as should a metric name only be passed when setting up a new tree. For metric a valid meric name can be passed. At state, only Sorensen-Dice Coefficient can be chosen by entering one of the allowed names for it: SorensenDiceCoefficient, SDC, sdc. If no name is given, the Levenshtein Distance that is set as default is loaded. If the tree has been set up or loaded successfully, status output will inform you about the tree stats.\
+For file either a .txt file containing a word list or a .pkl file containing a pickled BK-Tree can be passed. Note that the save flag ```--save``` should only be set when setting up the tree from a text file as should a metric name only be passed when setting up a new tree. For metric a valid meric name can be passed. At state, only Sorensen-Dice Coefficient can be chosen by entering one of the allowed names for it: SorensenDiceCoefficient, SDC, sdc. If no name is given, the Levenshtein Distance that is set as default is loaded. If you opt to save the tree, you will be prompted to enter a filename for saving the tree after the tree has been set up:\
+\
+![Saving](resources/save_prompt.png?raw=true "Saving prompt.")\
+\
+After the tree has been set up or loaded successfully, status output will inform you about the tree stats.\
 \
 ![Stats](resources/stats_output.png?raw=true "Stats output.")\
 \
@@ -50,6 +54,11 @@ The maximum edit distance: The appropriate values depend on the metric chosen. I
 
 ***
 ## Tests
+Tests are implemented for the BK-Tree and each of the Metrics. To run all, run ```pytest```\
+\
+To run them individually, run ```pytest model/metrics/test_levenshtein.py``` for Levenstein Distance, ```pytest model/metrics/test_sorensen_dice.py``` for Sorensen-Dice Coefficient and ```pytest model/test_bk_tree.py``` for the BK-Tree.\
+\
+Note: When running the tests for the BK-Tree, a DOT file is generated. Please manually delete the file after executing the test.
 ***
 ## Author
 Eileen Kammel eileen.niedenfuehr@uni-potsdam.de
