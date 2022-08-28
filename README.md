@@ -12,7 +12,7 @@ Once the BK-Tree is set up or loaded, the program starts an interactive mode, wh
 The implementation follows the Model-View-Controller design pattern. An overview of the architecture is shown below.
 
 
-![Alt text](resources/ApproxMatching.png?raw=true "Approximate String Matching using BK-Trees in MVC design pattern.")
+![Architecture](resources/ApproxMatching.png?raw=true "Approximate String Matching using BK-Trees in MVC design pattern.")
 
 ***
 ## Requirements
@@ -31,12 +31,25 @@ Download and unzip Repository. Save to loacation of your choice. Install require
 ***
 ## Demo
 A demo containing a pre-build tree with english word forms and Levenshtein Distance can be executed by running
-```python demo.py```
+```python3 demo.py```
 \
 To exit the demo, enter an empty line instead of a query word.
 ***
 ## Usage
+```python 3 approx_matching.py [-h] [-f FILE] [-s] [-m [METRIC]]```\
+\
+For file either a .txt file containing a word list or a .pkl file containing a pickled BK-Tree can be passed. Note that the save flag ```-s```should only be set when setting up the tree from a text file as should a metric name only be passed when setting up a new tree. For metric a valid meric name can be passed. At state, only Sorensen-Dice Coefficient can be chosen by entering one of the allowed names for it: SorensenDiceCoefficient, SDC, sdc. If no name is given, the Levenshtein Distance that is set as default is loaded. If the tree has been set up or loaded successfully, status output will inform you about the tree stats.\
+\
+![Stats](resources/stats_output.png?raw=true "Stats output.")\
+\
+Afterwards the interactive mode starts, where you are repeatedly prompted to enter a query word and an edit distance tolerance limit and are shown the output of your query. To exit the query loop, enter an empty line for query word.\
+\
+![Query](resources/query_loop.png?raw=true "Query Loop.")\
+\
+The maximum edit distance: The appropriate values depend on the metric chosen. If your tree is set up with Levenshtein Distance, the maximum edit distance can be any whole number greater than zero. The greater the distance, the less the similarity between the two words. For the Sorensen-Dice Coefficient, the maximum edit distance is a decimal number grater than zero and less than one. Words with an edit distance of zero have no similaryty at all, whereas words with distance one are identical.
+
 ***
 ## Tests
 ***
 ## Author
+Eileen Kammel eileen.niedenfuehr@uni-potsdam.de
