@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 # Author: Eileen Kammel, 811770
 
+import os
 import pytest as pt
 from model.bk_tree import BKTree
 from model.metrics.levenshtein import Levenshtein
@@ -11,6 +12,7 @@ def test_tree():
     test_tree = BKTree()
     test_tree.set_up_from_file(
         "model/test_data/test_wordlist.txt", Levenshtein)
+    os.remove("output_raw.dot")
     return test_tree
 
 
