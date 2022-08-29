@@ -56,9 +56,8 @@ The maximum edit distance: The appropriate values depend on the metric chosen. I
 ## Tests
 Tests are implemented for the BK-Tree and each of the Metrics. To run all, run ```pytest```\
 \
-To run them individually, run ```pytest model/metrics/test_levenshtein.py``` for Levenstein Distance, ```pytest model/metrics/test_sorensen_dice.py``` for Sorensen-Dice Coefficient and ```pytest model/test_bk_tree.py``` for the BK-Tree.\
-\
-Note: When running the tests for the BK-Tree, a DOT file is generated. Please manually delete the file after executing the test.
+To run them individually, run ```pytest model/metrics/test_levenshtein.py``` for Levenstein Distance, ```pytest model/metrics/test_sorensen_dice.py``` for Sorensen-Dice Coefficient and ```pytest model/test_bk_tree.py``` for the BK-Tree.
+
 ***
 ## Author
 Eileen Kammel eileen.niedenfuehr@uni-potsdam.de
