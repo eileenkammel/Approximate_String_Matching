@@ -19,33 +19,42 @@ from model.metrics.abstract_metric import Metric
 
 class BKNode():
     def __init__(self, word: str):
-        self._contents = (word, [])
+        self._label = word
+        self._children = []
+        self._distances = []
 
     def get_node_label(self):
         """Return the label of a node."""
-        return self._contents[0]
+        return self._label
 
     def set_children(self, child, distance):
         """Add a child its edit distance to a node."""
-        self._contents[1].append((child, distance))
+        self._children.append(child)
+        self._distances.append(distance)
 
     def get_children_with_distance(self):
         """Return a children list of tuples each containing
         a child BKNode object and its edit distance.
         """
-        return self._contents[1]
-
-    def get_child_node(self):
-        """Return a single child BKNode."""
-        return self._contents[1][0]
+        return list(zip(self._children, self._distances))
 
     def get_all_child_nodes(self):
         """Return a list of child BKNode without edit distance."""
-        return [child[0] for child in self._contents[1]]
+        return self._children
 
     def get_child_distances(self):
         """Return a list of edit distances from all children."""
-        return [child[1]for child in self._contents[1]]
+        return self._distances
+
+    @staticmethod
+    def get_node(node: tuple):
+        """Return a sigle node."""
+        return node[0]
+
+    @staticmethod
+    def get_distance(node: tuple):
+        """Return a single distance."""
+        return node[1]
 
 
 class BKTree():
@@ -173,8 +182,9 @@ class BKTree():
             node.set_children(new_node, dist)
             self.set_words()
             return
-        conflict_node = [child for child in children if child[1] == dist]
-        return self.add(word, conflict_node[0][0])
+        conflict_node = [BKNode.get_node(child)
+                         for child in children if BKNode.get_distance(child) == dist]
+        return self.add(word, conflict_node[0])
 
     def query(self, word: str, max_dist: float):
         """Public query function.
@@ -221,9 +231,9 @@ class BKTree():
             if dist <= max_dist:
                 matches.append(node_word)
             next_level_nodes = current_node.get_children_with_distance()
-            candidates = [child[0] for child in next_level_nodes
-                          if child[1] > (dist - max_dist)
-                          and child[1] <= (dist + max_dist)
+            candidates = [BKNode.get_node(child) for child in next_level_nodes
+                          if BKNode.get_distance(child) > (dist - max_dist)
+                          and BKNode.get_distance(child) <= (dist + max_dist)
                           ]
             nodes_to_visit.extend(candidates)
         return matches
@@ -245,14 +255,12 @@ class BKTree():
         curr_node = pydot.Node(nodelabel, label=nodelabel, shape='circle')
         dot_graph.add_node(curr_node)
         for child in node.get_children_with_distance():
-            child_label = child[0].get_node_label()
-            edit_dist = str(child[1])
+            child_label = BKNode.get_node(child).get_node_label()
+            edit_dist = str(BKNode.get_distance(child))
             child_node = pydot.Node(
                 child_label, label=child_label, shape='circle')
             dot_graph.add_node(child_node)
             edge = pydot.Edge(curr_node, child_node, label=edit_dist)
             dot_graph.add_edge(edge)
-            BKTree.add_node_to_dot(child[0], dot_graph)
+            BKTree.add_node_to_dot(BKNode.get_node(child), dot_graph)
         return dot_graph
-
-
