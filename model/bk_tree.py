@@ -107,7 +107,7 @@ class BKTree():
         """Set metric used to build tree."""
         self._metric = metric
 
-    def set_up_from_file(self, filepath: str, metric: Metric):
+    def setup_from_txt_file(self, filepath: str, metric: Metric):
         """Set up the BK-Tree.
 
         Tree is set up by selecting a root and then adding new nodes to it
@@ -116,7 +116,7 @@ class BKTree():
         depth of the tree is set.
 
         Args:
-            filepath: Filepath to text file for source words.
+            filepath: Filepath to .txt file for source words.
             metric: Metric class to use in tree set-up.
         """
         self.set_metric(metric)
@@ -131,7 +131,7 @@ class BKTree():
         self.set_depth()
         self.tree_to_dot()
 
-    def save_to_file(self):
+    def save_to_pickle(self):
         """Pickle and save BKTree object."""
         filename = input(
             "Enter a filename with .pkl file extension to save the tree: ")
@@ -140,11 +140,11 @@ class BKTree():
                 pkl.dump(self, outfile)
 
     @staticmethod
-    def load_from_file(filepath: str):
+    def load_from_pickle(filepath: str):
         """Load pre-build and pickled tree from a file.
 
         Args:
-            filepath: Filepath to a pickled Tree.
+            filepath: Filepath to a .pkl file.
         """
         with open(filepath, "rb") as infile:
             tree = pkl.load(infile)
@@ -168,7 +168,7 @@ class BKTree():
         """Add a new word to the BK-Tree.
 
         A new node is instantiated with the given word and then
-        added as a child to an appropriate exisiting node. After each
+        added as a child to an appropriate existing node. After each
         addition total word count is incremented by 1.
 
         Args:
@@ -193,7 +193,7 @@ class BKTree():
 
         Args:
             word: Query word to find matches for.
-            max_dist: Edit ditance tolerance limit.
+            max_dist: Edit distance tolerance limit.
 
         Returns:
             List of words which are within the edit distance
@@ -208,7 +208,7 @@ class BKTree():
         Search after breadth first principle. Only subtrees whose
         root nodes edit distance regarding the query word
         is within a certain edit distance range are visited.
-        The range is definded as follows:
+        The range is defined as follows:
         (d - max_dist, d + max_dist)
         d being the edit distance regarding the query word and the word
         of the current node, max_dist being an edit distance tolerance limit.
@@ -216,7 +216,7 @@ class BKTree():
         Args:
             word: Query word to find matches for.
             node: Current node to compare query word against.
-            max_dist: Edit ditance tolerance limit.
+            max_dist: Edit distance tolerance limit.
 
         Returns:
             matches: List of words which are within the edit distance

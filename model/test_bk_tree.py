@@ -10,7 +10,7 @@ from model.metrics.levenshtein import Levenshtein
 @pt.fixture(scope="session", autouse=True)
 def test_tree():
     test_tree = BKTree()
-    test_tree.set_up_from_file(
+    test_tree.setup_from_txt_file(
         "model/test_data/test_wordlist.txt", Levenshtein)
     os.remove("output_raw.dot")
     return test_tree
@@ -18,7 +18,7 @@ def test_tree():
 
 @pt.fixture(scope="session", autouse=True)
 def test_tree_from_file():
-    test_tree = BKTree.load_from_file("model/test_data/test_tree.pkl")
+    test_tree = BKTree.load_from_pickle("model/test_data/test_tree.pkl")
     return test_tree
 
 

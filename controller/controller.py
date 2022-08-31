@@ -38,11 +38,11 @@ class InteractiveMatcher:
         """
         metric = InteractiveMatcher.determine_metric(metric_name)
         if filepath.endswith(".txt"):
-            self._tree.set_up_from_file(filepath, metric)
+            self._tree.setup_from_txt_file(filepath, metric)
             if save:
-                self._tree.save_to_file()
+                self._tree.save_to_pickle()
         if filepath.endswith(".pkl"):
-            self._tree = BKTree.load_from_file(filepath)
+            self._tree = BKTree.load_from_pickle(filepath)
         depth, words = self._tree.get_tree_stats()
         self._view.show_tree_stats(depth, words)
 
