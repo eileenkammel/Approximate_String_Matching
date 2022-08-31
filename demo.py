@@ -1,5 +1,8 @@
 # -*-coding:utf-8 -*-
 # Author: Eileen Kammel, 811770
+"""Executable demo of the interactive approximate matching.
+Uses a BK-Tree with 8 english words and the Levenshtein Distance.
+"""
 
 from controller.controller import InteractiveMatcher
 
