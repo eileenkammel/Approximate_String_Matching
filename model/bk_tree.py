@@ -4,7 +4,7 @@
 within the Model-View-Controller design pattern.
 The BK-Tree is implemented in two parts: The nodes of the tree
 are their own class. A BKNode object stores information about its label/word
-and about its children, also BKNodes, and their edit distasnce from the label.
+and about its children, also BKNodes, and their edit distance from the label.
 The BKTree stores information about its depth, node count, its root node and
 the metric used to generate the tree.
 The Tree is build by linking nodes together, beginning with the rood node.
@@ -61,14 +61,14 @@ class BKTree():
     def __init__(self):
         self._tree_root = None
         self._depth = 0
-        self._words = 0
+        self._word_count = 0
         self._metric = None
 
-    def set_words(self):
+    def set_word_count(self):
         """Increment total word count by 1."""
         self._words += 1
 
-    def get_words(self):
+    def get_word_count(self):
         """Return word count."""
         return self._words
 
@@ -158,7 +158,7 @@ class BKTree():
         """
         root_node = BKNode(word)
         self._tree_root = root_node
-        self.set_words()
+        self.set_word_count()
 
     def get_root(self):
         """Return tree root node."""
@@ -180,7 +180,7 @@ class BKTree():
         children = node.get_children_with_distance()
         if not children or dist not in node.get_child_distances():
             node.set_children(new_node, dist)
-            self.set_words()
+            self.set_word_count()
             return
         conflict_node = [BKNode.get_node(child)
                          for child in children if BKNode.get_distance(child) == dist]
