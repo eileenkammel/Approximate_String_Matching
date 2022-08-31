@@ -22,5 +22,3 @@ class TestSDC:
     def test_5(self):
         assert SorensenDiceCoefficient.min_edit_dist(
             "rhythmus", "rytmus") == 0.5
-
-

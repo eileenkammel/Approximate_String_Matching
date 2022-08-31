@@ -66,5 +66,3 @@ class Levenshtein(Metric):
         if source_char == target_char:
             return 0
         return 1
-
-

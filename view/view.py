@@ -34,5 +34,3 @@ class ApproxMatchViewer:
         print((
             f"For {query_word} and maximum edit distance {max_dist} "
             "the matches are: " + ", ".join(matches)))
-
-

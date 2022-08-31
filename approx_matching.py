@@ -30,5 +30,3 @@ matcher = InteractiveMatcher()
 
 matcher.set_up_tree(file, metric, save)
 matcher.find_matches()
-
-

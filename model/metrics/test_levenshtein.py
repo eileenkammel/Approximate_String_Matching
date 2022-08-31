@@ -50,5 +50,3 @@ class TestLevenshtein:
 
     def test_substitution_insertion(self):
         assert Levenshtein.min_edit_dist("hell", "helps") == 2
-
-

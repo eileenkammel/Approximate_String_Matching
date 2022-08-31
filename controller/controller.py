@@ -79,5 +79,3 @@ class InteractiveMatcher:
             return SorensenDiceCoefficient
         print("No suitable metric name was given.")
         sys.exit()
-
-        
