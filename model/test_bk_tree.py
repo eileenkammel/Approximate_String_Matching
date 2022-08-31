@@ -62,6 +62,4 @@ class TestBKLevenshtein:
         assert test_tree.get_depth() == 2
 
     def test_tree_words(self, test_tree):
-        assert test_tree.get_words() == 8
-
-
+        assert test_tree.get_word_count() == 8
