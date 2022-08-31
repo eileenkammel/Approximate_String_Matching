@@ -1,5 +1,9 @@
 # -*-coding:utf-8 -*-
 # Author: Eileen Kammel, 811770
+"""Executable main of the approximate string matching.
+Takes filepath to either a word list or a pickled tree, metric name
+and saving choice as command line arguments when executed.
+"""
 
 import argparse
 from controller.controller import InteractiveMatcher
