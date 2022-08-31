@@ -66,11 +66,11 @@ class BKTree():
 
     def set_word_count(self):
         """Increment total word count by 1."""
-        self._words += 1
+        self._word_count += 1
 
     def get_word_count(self):
         """Return word count."""
-        return self._words
+        return self._word_count
 
     @staticmethod
     def depth(node: BKNode):
@@ -201,7 +201,7 @@ class BKTree():
         """
         return self._search(word, self._tree_root, max_dist)
 
-    def _search(self, word: str, node: BKNode, max_dist: float):
+    def _search(self, word: str, root: BKNode, max_dist: float):
         """Searches BK-Tree for matches regarding a given word and
         maximum edit distance.
 
@@ -222,7 +222,7 @@ class BKTree():
             matches: List of words which are within the edit distance
             tolerance limit for the query word.
         """
-        nodes_to_visit = deque([node])
+        nodes_to_visit = deque([root])
         matches = []
         while nodes_to_visit:
             current_node = nodes_to_visit.popleft()
