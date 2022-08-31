@@ -215,7 +215,7 @@ class BKTree():
 
         Args:
             word: Query word to find matches for.
-            node: Current node to compare query word against.
+            root: Root node of the tree.
             max_dist: Edit distance tolerance limit.
 
         Returns:
