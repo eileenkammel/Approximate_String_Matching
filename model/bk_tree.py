@@ -183,7 +183,8 @@ class BKTree():
             self.set_word_count()
             return
         conflict_node = [BKNode.get_node(child)
-                         for child in children if BKNode.get_distance(child) == dist]
+                         for child in children
+                         if BKNode.get_distance(child) == dist]
         return self.add(word, conflict_node[0])
 
     def query(self, word: str, max_dist: float):
