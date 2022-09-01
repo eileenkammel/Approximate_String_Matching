@@ -8,15 +8,15 @@ Part of the View within the Model-View-Controller design pattern.
 
 
 class ApproxMatchViewer:
-    """Print output for User to see."""
+    """Print output for user to see."""
 
     @staticmethod
     def show_tree_stats(depth: int, words: int):
-        """Print message informing User about tree depth and node count.
+        """Print message informing user about tree depth and node count.
 
         Args:
             depth: Depth of the tree.
-            words: Word/Node coiunt of the tree.
+            words: Word/Node count of the tree.
         """
         print((
             f"A BK-Tree with depth {depth} "
