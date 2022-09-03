@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 # Author: Eileen Kammel, 811770
 
+import os
 import pytest as pt
 from model.bk_tree import BKTree
 from model.metrics.levenshtein import Levenshtein
@@ -9,14 +10,15 @@ from model.metrics.levenshtein import Levenshtein
 @pt.fixture(scope="session", autouse=True)
 def test_tree():
     test_tree = BKTree()
-    test_tree.set_up_from_file(
+    test_tree.setup_from_txt_file(
         "model/test_data/test_wordlist.txt", Levenshtein)
+    os.remove("output_raw.dot")
     return test_tree
 
 
 @pt.fixture(scope="session", autouse=True)
 def test_tree_from_file():
-    test_tree = BKTree.load_from_file("model/test_data/test_tree.pkl")
+    test_tree = BKTree.load_from_pickle("model/test_data/test_tree.pkl")
     return test_tree
 
 
@@ -60,4 +62,4 @@ class TestBKLevenshtein:
         assert test_tree.get_depth() == 2
 
     def test_tree_words(self, test_tree):
-        assert test_tree.get_words() == 8
+        assert test_tree.get_word_count() == 8

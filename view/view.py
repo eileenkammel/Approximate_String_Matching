@@ -8,15 +8,15 @@ Part of the View within the Model-View-Controller design pattern.
 
 
 class ApproxMatchViewer:
-    """Print output for User to see."""
+    """Print output for user to see."""
 
     @staticmethod
     def show_tree_stats(depth: int, words: int):
-        """Print message informing User about tree depth and node count.
+        """Print message informing user about tree depth and node count.
 
         Args:
             depth: Depth of the tree.
-            words: Word/Node coiunt of the tree.
+            words: Word/Node count of the tree.
         """
         print((
             f"A BK-Tree with depth {depth} "
@@ -34,3 +34,13 @@ class ApproxMatchViewer:
         print((
             f"For {query_word} and maximum edit distance {max_dist} "
             "the matches are: " + ", ".join(matches)))
+
+    @staticmethod
+    def inform_of_termination(reason: str):
+        """Informs the user of program termination.
+
+        Args:
+            reason: Used for f-string, informs if program is
+            terminated due to invalid metric name or file input.
+        """
+        return print(f"Program will be terminated due to invalid {reason}.")

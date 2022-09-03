@@ -57,7 +57,7 @@ class SorensenDiceCoefficient(Metric):
         return bigrams, len(bigrams)
 
     def count_intersections(bigrams_source: list, bigrams_target: list):
-        """Counts intersections of to bigram lists.
+        """Counts intersections of two bigram lists.
 
         Args:
             bigrams_source: List of bigrams in source word.
