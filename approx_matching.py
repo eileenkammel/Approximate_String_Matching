@@ -4,33 +4,32 @@
 Takes filepath to either a word list or a pickled tree, metric name
 and saving choice as command line arguments when executed.
 """
+if __name__ == "__main__":
+    import argparse
+    from controller.controller import InteractiveMatcher
 
-import argparse
-from controller.controller import InteractiveMatcher
+    parser = argparse.ArgumentParser()
 
+    parser.add_argument(
+        "--file", type=str, help=("Path to either a .txt file containing a wordlist or a \
+                    .pkl file containing a pre set-up and pickeled BK-Tree."))
 
-parser = argparse.ArgumentParser()
+    parser.add_argument("--save", action="store_true", help=("Flag for saving the BK-Tree. \
+                    If set, the tree gets saved."))
 
-parser.add_argument(
-    "--file", type=str, help=("Path to either a .txt file containing a wordlist or \
-                a .pkl file containing a pre set-up and pickeled BK-Tree."))
+    parser.add_argument("--metric", type=str, const="Levenshtein", nargs="?", help=("Name of a distance metric. \
+                    If omitted, Levenshtein as default is choosen. \
+                    Current options: \
+                    Sorensen Dice Coefficient \
+                    (SorensenDiceCoefficient, SDC, sdc)"))
 
-parser.add_argument("--save", action="store_true", help=("Flag for saving the BK-Tree. \
-                If set, the tree gets saved."))
+    args = parser.parse_args()
 
-parser.add_argument("--metric", type=str, const="Levenshtein", nargs="?", help=("Name of a distance metric. \
-                If omitted, Levenshtein as default is choosen. \
-                Current options: \
-                Sorensen Dice Coefficient \
-                (SorensenDiceCoefficient, SDC, sdc)"))
+    file = args.file
+    save = args.save
+    metric = args.metric
 
-args = parser.parse_args()
+    matcher = InteractiveMatcher()
 
-file = args.file
-save = args.save
-metric = args.metric
-
-matcher = InteractiveMatcher()
-
-matcher.set_up_tree(file, metric, save)
-matcher.find_matches()
+    matcher.set_up_tree(file, metric, save)
+    matcher.find_matches()
