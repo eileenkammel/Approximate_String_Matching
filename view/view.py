@@ -34,3 +34,13 @@ class ApproxMatchViewer:
         print((
             f"For {query_word} and maximum edit distance {max_dist} "
             "the matches are: " + ", ".join(matches)))
+
+    @staticmethod
+    def inform_of_termination(reason: str):
+        """Informs the user of program termination.
+
+        Args:
+            reason: Used for f-string, informs if program is
+            terminated due to invalid metric name or file input.
+        """
+        return print(f"Program will be terminated due to invalid {reason}.")

@@ -23,7 +23,7 @@ class InteractiveMatcher:
         self._tree = BKTree()
 
     def set_up_tree(self, filepath: str, metric_name: str, save: bool = False):
-        """Inititialize the BK-Tree set-up.
+        """Initialize the BK-Tree set-up.
 
         The Tree is either set-up new from a textfile or loaded from
         a pkl. file depending on the filepath passed. The metric class
@@ -36,13 +36,16 @@ class InteractiveMatcher:
             default is Levenshtein.
             save: Decide if tree gets saved once set up.
         """
-        metric = InteractiveMatcher.determine_metric(metric_name)
+        metric = self.determine_metric(metric_name)
         if filepath.endswith(".txt"):
             self._tree.setup_from_txt_file(filepath, metric)
             if save:
                 self._tree.save_to_pickle()
-        if filepath.endswith(".pkl"):
+        elif filepath.endswith(".pkl"):
             self._tree = BKTree.load_from_pickle(filepath)
+        else:
+            self._view.inform_of_termination("file path")
+            sys.exit()
         depth, words = self._tree.get_tree_stats()
         self._view.show_tree_stats(depth, words)
 
@@ -60,8 +63,7 @@ class InteractiveMatcher:
             matches = self._tree.query(word, max_dist)
             self._view.show_matches(word, max_dist, matches)
 
-    @staticmethod
-    def determine_metric(metric_name: str):
+    def determine_metric(self, metric_name: str):
         """Determine which metric class to load.
 
         Commandline argument string is translated to matching
@@ -77,5 +79,5 @@ class InteractiveMatcher:
             return Levenshtein
         if metric_name in ["SorensenDiceCoefficient", "SDC", "sdc"]:
             return SorensenDiceCoefficient
-        print("No suitable metric name was given.")
+        self._view.inform_of_termination("metric")
         sys.exit()
