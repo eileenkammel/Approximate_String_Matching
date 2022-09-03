@@ -27,7 +27,7 @@ Requirements besides Python can be installed with pip by running
 ```pip3 install -r requirements.txt```
 ***
 ## Installation
-Download and unzip Repository. Save to loacation of your choice. Install requirements above as needed. 
+Download and unzip Repository. Save to location of your choice. Install requirements above as needed. 
 ***
 ## Demo
 A demo containing a pre-build tree with english word forms and Levenshtein Distance can be executed by running
