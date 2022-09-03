@@ -101,7 +101,7 @@ class BKTree():
 
     def get_tree_stats(self):
         """Return depth and word count of the tree."""
-        return self._depth, self._words
+        return self._depth, self._word_count
 
     def set_metric(self, metric: Metric):
         """Set metric used to build tree."""
